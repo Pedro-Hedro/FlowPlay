@@ -26,11 +26,14 @@ jobs:
       with:
         terraform_version: 1.4.6
 
-    # Install tfsec for Terraform security scanning
+    - name: Remove unnecessary environment variables
+      run: unset TERRAFORM_CLI_PATH
+
     - name: Install tfsec
       run: |
-        set +u  # Desativa a verificação de variáveis indefinidas
+        set +u
         curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install.sh | bash
+
 
 
     # Run tfsec for security analysis
