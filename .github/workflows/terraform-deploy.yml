@@ -16,6 +16,8 @@ jobs:
   terraform-lint:
     name: Lint and Security Checks
     runs-on: ubuntu-latest
+    env:
+      TERRAFORM_CLI_PATH: /path/to/terraform
 
     steps:
     - name: Checkout code
