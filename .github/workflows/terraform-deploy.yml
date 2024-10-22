@@ -16,8 +16,8 @@ jobs:
   terraform-lint:
     name: Lint and Security Checks
     runs-on: ubuntu-latest
-    env:
-      TERRAFORM_CLI_PATH: /path/to/terraform
+    # env:
+    #   TERRAFORM_CLI_PATH: /path/to/terraform
 
     steps:
     - name: Checkout code
@@ -30,8 +30,10 @@ jobs:
 
     # Install tfsec for Terraform security scanning
     - name: Install tfsec
-      run: |
-        curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install.sh | bash
+    run: |
+      set +u  # Desativa a verificação de variáveis indefinidas
+      curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install.sh | bash
+
 
     # Run tfsec for security analysis
     - name: Run tfsec
