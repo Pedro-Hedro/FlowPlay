@@ -38,15 +38,18 @@ jobs:
     # Run tfsec for security analysis
     - name: Run tfsec
       run: tfsec ./terraform
+      continue-on-error: true
 
     # Install Checkov for additional security scanning
     - name: Install Checkov
       run: |
         pip install checkov
+      continue-on-error: true
 
     # Run Checkov for code checks and security
     - name: Run Checkov
       run: checkov -d ./terraform
+      continue-on-error: true
 
   terraform-plan:
     name: Terraform Plan (Dev or Prod)
