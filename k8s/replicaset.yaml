@@ -1,0 +1,23 @@
+# #gerencia o numero de replicas
+
+# apiVersion: apps/v1
+# kind: ReplicaSet
+# metadata:
+#   name: goserver
+#   labels:
+#     app: goserver
+# spec:
+#   selector:
+#     matchLabels:
+#       app: goserver    
+#   replicas: 2
+
+#   #### replicas specs ###
+#   template:
+#     metadata:
+#       labels:
+#         app: "goserver"
+#     spec:
+#       containers:
+#         - name: goserver
+#           image: "pedrohedro/hello:v2"

@@ -1,0 +1,22 @@
+#nodeport e para usar para dar exemplos de aplicacoes no ar 
+
+#service atua como load balancer
+apiVersion: v1
+kind: Service
+metadata:
+  name: goserver-service-node
+spec:
+  selector:
+  #responsavel por filtar todos os pods incorporados no service
+    app: goserver
+  type: LoadBalancer # gera nodeport, util para cloud providers
+  ports:
+  - name: goserver-service-load
+    port: 80
+    targetPort: 8000
+    protocol: TCP
+    # nodePort: 30001 #3000 - 32767
+
+
+
+    

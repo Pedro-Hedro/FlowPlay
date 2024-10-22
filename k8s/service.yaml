@@ -1,0 +1,16 @@
+
+#service atua como load balancer
+apiVersion: v1
+kind: Service
+metadata:
+  name: goserver-service
+spec:
+  selector:
+  #responsavel por filtar todos os pods incorporados no service
+    app: goserver
+  type: ClusterIP
+  ports:
+  - name: goserver-service
+    port: 80
+    targetPort: 8000 #porta da aplicaão
+    protocol: TCP
