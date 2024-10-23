@@ -51,6 +51,10 @@ jobs:
   terraform-plan:
     name: Terraform Plan (Dev or Prod)
     runs-on: ubuntu-latest
+    
+    env:  # Definição global de variáveis de ambiente
+      AWS_PROFILE: default
+
     needs: terraform-lint
 
     steps:
@@ -87,10 +91,7 @@ jobs:
     # Terraform Plan with Debug Logs and Capture Output
     - name: Terraform Plan
       id: plan
-      run: |
-        pwd && ls -la 
-        aws s3 ls flowplay
-        terraform plan 
+      run:  terraform plan 
       working-directory: ./terraform
 
     # Use the captured output from plan in PR comments or logs

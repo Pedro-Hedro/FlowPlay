@@ -12,10 +12,9 @@ terraform {
     }
   }
   backend "s3" {
-    bucket  = "flowplay"
-    key     = "bucket-state/flowplay.tfstate"
-    region  = "us-east-1"
-    profile = "default"
+    bucket = "flowplay"
+    key    = "flowplay.tfstate"
+    region = "us-east-1"
   }
   required_version = ">=1.1.0" # Required terraform version
 }
