@@ -51,9 +51,6 @@ jobs:
   terraform-plan:
     name: Terraform Plan (Dev or Prod)
     runs-on: ubuntu-latest
-    
-    env:  # Definição global de variáveis de ambiente
-      AWS_PROFILE: default
 
     needs: terraform-lint
 
