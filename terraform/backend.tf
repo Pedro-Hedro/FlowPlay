@@ -13,7 +13,7 @@ terraform {
   }
   backend "s3" {
     bucket  = "flowplay"
-    key     = "flowplay.tfstate"
+    key     = "bucket-state/flowplay.tfstate"
     region  = "us-east-1"
     profile = "default"
   }

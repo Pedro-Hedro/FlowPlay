@@ -87,10 +87,7 @@ jobs:
     # Terraform Plan with Debug Logs and Capture Output
     - name: Terraform Plan
       id: plan
-      run: |
-        pwd && ls -la 
-        aws s3 ls flowplay
-        terraform plan 
+      run: terraform plan 
       working-directory: ./terraform
 
     # Use the captured output from plan in PR comments or logs
