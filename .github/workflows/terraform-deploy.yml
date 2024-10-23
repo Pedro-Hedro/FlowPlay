@@ -31,9 +31,6 @@ jobs:
           set +u
           wget https://github.com/aquasecurity/tfsec/releases/latest/download/tfsec-linux-amd64 -O /usr/local/bin/tfsec
           chmod +x /usr/local/bin/tfsec
-  
-
-
 
     # Run tfsec for security analysis
     - name: Run tfsec
@@ -59,6 +56,17 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+
+    # Cache Terraform modules and providers
+    - name: Cache Terraform modules
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.terraform.d/plugin-cache
+          .terraform
+        key: terraform-${{ hashFiles('**/*.tf') }}
+        restore-keys: |
+          terraform-
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3.1.0
