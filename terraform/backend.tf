@@ -1,7 +1,8 @@
 provider "aws" {
-  region  = "us-east-1"
-  profile = "default" # this is configured in ~/.aws/credentials. Must be hardcoded
-  default_tags { tags = var.tags }
+  region = "us-east-1"
+  default_tags {
+    tags = var.tags
+  }
 }
 
 terraform {
@@ -13,9 +14,9 @@ terraform {
   }
   backend "s3" {
     bucket = "flowplay"
-    key    = "flowplay.tfstate"
+    key    = "bucket-state/flowplay.tfstate"
     region = "us-east-1"
+    # Remove o perfil, pois o GitHub Actions vai usar as credenciais configuradas
   }
-  required_version = ">=1.1.0" # Required terraform version
+  required_version = ">=1.1.0"
 }
-
