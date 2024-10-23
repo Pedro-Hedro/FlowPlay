@@ -89,6 +89,7 @@ jobs:
       id: plan
       run: |
         pwd && ls -la 
+        aws s3 ls flowplay
         terraform plan 
       working-directory: ./terraform
 
