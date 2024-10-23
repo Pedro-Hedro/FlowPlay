@@ -85,7 +85,7 @@ jobs:
       working-directory: ./terraform
 
     - name: Terraform Plan
-      run: terraform plan -out=tfplan
+      run: terraform plan 
       working-directory: ./terraform
 
     - name: Upload plan to PR
