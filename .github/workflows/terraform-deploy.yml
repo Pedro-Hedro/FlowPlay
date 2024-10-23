@@ -61,13 +61,13 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-        working-directory: Infra/terraform
+        working-directory: ./terraform
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
-        working-directory: Infra/terraform
+        working-directory: ./terraform
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         run: terraform apply -input=false tfplan
-        working-directory: Infra/terraform
+        working-directory: ./terraform
