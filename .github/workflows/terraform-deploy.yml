@@ -48,60 +48,57 @@ jobs:
   #     run: checkov -d ./terraform
   #     continue-on-error: true
 
-  terraform-plan:
-    name: Terraform Plan (Dev or Prod)
-    runs-on: ubuntu-latest
-    #needs: terraform-lint
+  # terraform-plan:
+  #   name: Terraform Plan (Dev or Prod)
+  #   runs-on: ubuntu-latest
+  #   #needs: terraform-lint
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+  #   steps:
+  #   - name: Checkout code
+  #     uses: actions/checkout@v4
 
-    # Cache Terraform modules and providers
-    - name: Cache Terraform modules
-      uses: actions/cache@v2
-      with:
-        path: |
-          ~/.terraform.d/plugin-cache
-          .terraform
-        key: terraform-${{ hashFiles('**/*.tf') }}
-        restore-keys: |
-          terraform-
+  #   # Cache Terraform modules and providers
+  #   - name: Cache Terraform modules
+  #     uses: actions/cache@v2
+  #     with:
+  #       path: |
+  #         ~/.terraform.d/plugin-cache
+  #         .terraform
+  #       key: terraform-${{ hashFiles('**/*.tf') }}
+  #       restore-keys: |
+  #         terraform-
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v3.1.0
-      with:
-        terraform_version: 1.4.6
+  #   - name: Setup Terraform
+  #     uses: hashicorp/setup-terraform@v3.1.0
+  #     with:
+  #       terraform_version: 1.4.6
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
+  #   - name: Configure AWS credentials
+  #     uses: aws-actions/configure-aws-credentials@v1
+  #     with:
 
-    - name: Terraform Init
-      run: terraform init
-      working-directory: ./terraform
 
-    # Terraform Plan with Debug Logs
-    - name: Terraform Plan with Debug Logs
-      run: |
-        export TF_LOG=DEBUG
-        terraform plan -out=tfplan
-      working-directory: ./terraform
+  #   - name: Terraform Init
+  #     run: terraform init
+  #     working-directory: ./terraform
 
-    - name: Upload plan to PR
-      if: github.event_name == 'pull_request'
-      uses: actions/upload-artifact@v4
-      with:
-        name: terraform-plan
-        path: tfplan
+  #   # Terraform Plan with Debug Logs
+  #   - name: Terraform Plan with Debug Logs
+  #     run: |
+  #       export TF_LOG=DEBUG
+  #       terraform plan -out=tfplan
+  #     working-directory: ./terraform
+
+  #   - name: Upload plan to PR
+  #     uses: actions/upload-artifact@v4
+  #     with:
+  #       name: terraform-plan
+  #       path: tfplan
 
   terraform-apply:
     name: Terraform Apply (Deploy to Dev/Prod)
     runs-on: ubuntu-latest
-    needs: terraform-plan
+    #needs: terraform-plan
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
 
     steps:
