@@ -21,16 +21,26 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v3
+    # Cache para dependências do Python (Checkov, tfsec, etc.)
+    - name: Cache Python dependencies
+      uses: actions/cache@v2
       with:
-        terraform_version: 1.4.6
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    # Instalar Checkov e tfsec com cache
+    - name: Install Checkov
+      run: |
+        pip install checkov
+      continue-on-error: true
 
     - name: Install tfsec manually
       run: |
-        set +u
         wget https://github.com/aquasecurity/tfsec/releases/latest/download/tfsec-linux-amd64 -O /usr/local/bin/tfsec
         chmod +x /usr/local/bin/tfsec
+
 
     # Run tfsec for security analysis
     - name: Run tfsec
