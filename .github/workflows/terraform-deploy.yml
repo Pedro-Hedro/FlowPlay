@@ -87,7 +87,8 @@ jobs:
     # Terraform Plan with Debug Logs and Capture Output
     - name: Terraform Plan
       id: plan
-      run: terraform plan 
+      run: terraform plan  -parallelism=1
+
       working-directory: ./terraform
 
     # Use the captured output from plan in PR comments or logs
